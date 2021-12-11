@@ -5,18 +5,50 @@ import FilterButton from "./components/FilterButton/FilterButton";
 import { DATA } from "./utils/mockData";
 
 function App() {
-  const [task, setTask] = useState(DATA)
+  const [tasks, setTasks] = useState(DATA);
 
-  const taskList = task.map((task) => {
+  const toggleTaskCompleted = (id: string) => {
+    const updatedTasks = tasks.map((task) => {
+      if (id === task.id) {
+        return { ...task, done: !task.done };
+      } else {
+        return task;
+      }
+    });
+    setTasks(updatedTasks);
+  };
+
+  const addTask = (name: string) => {
+    const newTask = {
+      id: "todo-" + Math.floor(Date.now() * Math.random()),
+      name: name,
+      done: false,
+    };
+    setTasks([...tasks, newTask]);
+  };
+
+  const deleteTask = (id: string) => {
+    const remainingTasks = tasks.filter((task) => {
+      return id !== task.id;
+    });
+    setTasks(remainingTasks);
+  };
+
+  const taskList = tasks.map((task) => {
     return (
-      <Todo key={task.id} id={task.id} name={task.name} done={task.done} />
+      <Todo
+        key={task.id}
+        id={task.id}
+        name={task.name}
+        done={task.done}
+        toggleTaskCompleted={toggleTaskCompleted}
+        deleteTask={deleteTask}
+      />
     );
   });
 
-  const addTask=(name: string)=>{
-    const newTask = {id: "todo-" + Math.floor(Date.now() * Math.random()), name: name, done:false}
-    setTask([...task, newTask])
-  }
+  const tasksNoun = taskList.length === 1 ? "tasks" : "task";
+  const tasksRemaining = `${taskList.length} ${tasksNoun} remaining`;
 
   return (
     <div
@@ -29,7 +61,7 @@ function App() {
         <FilterButton />
         <FilterButton />
       </div>
-      <h2>3 tasks remaining</h2>
+      <h2>{tasksRemaining}</h2>
       <ul>{taskList}</ul>
     </div>
   );
