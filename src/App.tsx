@@ -34,6 +34,17 @@ function App() {
     setTasks(remainingTasks);
   };
 
+  const editTask = (id: string, newName: string) => {
+    const editedTaskList = tasks.map((task) => {
+      if (id === task.id) {
+        return { ...task, name: newName };
+      } else {
+        return task;
+      }
+    });
+    setTasks(editedTaskList);
+  };
+
   const taskList = tasks.map((task) => {
     return (
       <Todo
@@ -43,6 +54,7 @@ function App() {
         done={task.done}
         toggleTaskCompleted={toggleTaskCompleted}
         deleteTask={deleteTask}
+        editTask={editTask}
       />
     );
   });
