@@ -3,9 +3,19 @@ import Todo from "./components/Todo/Todo";
 import Form from "./components/Form/Form";
 import FilterButton from "./components/FilterButton/FilterButton";
 import { DATA } from "./utils/mockData";
+import { Item } from "./types/Item";
+
+const FILTER_MAP: { [key: string]: (prop: Item) => boolean } = {
+  All: () => true,
+  Active: (task) => !task.done,
+  Done: (task) => task.done,
+};
+
+const FILTER_NAMES = Object.keys(FILTER_MAP);
 
 function App() {
   const [tasks, setTasks] = useState(DATA);
+  const [filter, setFilter] = useState("All");
 
   const toggleTaskCompleted = (id: string) => {
     const updatedTasks = tasks.map((task) => {
@@ -45,7 +55,7 @@ function App() {
     setTasks(editedTaskList);
   };
 
-  const taskList = tasks.map((task) => {
+  const taskList = tasks.filter(FILTER_MAP[filter]).map((task) => {
     return (
       <Todo
         key={task.id}
@@ -59,6 +69,17 @@ function App() {
     );
   });
 
+  const filterList = FILTER_NAMES.map((name) => {
+    return (
+      <FilterButton
+        key={name}
+        name={name}
+        isPressed={name === filter}
+        setFilter={setFilter}
+      />
+    );
+  });
+
   const tasksNoun = taskList.length === 1 ? "tasks" : "task";
   const tasksRemaining = `${taskList.length} ${tasksNoun} remaining`;
 
@@ -68,11 +89,7 @@ function App() {
     >
       <h1>React Todo List</h1>
       <Form addTask={addTask} />
-      <div>
-        <FilterButton />
-        <FilterButton />
-        <FilterButton />
-      </div>
+      {filterList}
       <h2>{tasksRemaining}</h2>
       <ul>{taskList}</ul>
     </div>
