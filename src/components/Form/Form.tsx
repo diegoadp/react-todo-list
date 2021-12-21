@@ -27,6 +27,7 @@ function Form(props: Props) {
         id="new-todo-input"
         name="text"
         value={name}
+        required
         onChange={handleChange}
       />
       <button type="submit">Add</button>

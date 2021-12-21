@@ -30,18 +30,13 @@ function Todo(props: Item & Props) {
           id={props.id}
           type="text"
           value={newName}
+          required
           onChange={handleChange}
         />
       </div>
       <div>
-        <button onClick={() => setIsEditing(false)}>
-          Cancel
-          <span>renaming {props.name}</span>
-        </button>
-        <button>
-          Save
-          <span>new name for {props.name}</span>
-        </button>
+        <button onClick={() => setIsEditing(false)}>Cancel</button>
+        <button>Save</button>
       </div>
     </form>
   );
@@ -58,12 +53,8 @@ function Todo(props: Item & Props) {
         <label htmlFor={props.id}>{props.name}</label>
       </div>
       <div>
-        <button onClick={() => setIsEditing(true)}>
-          Edit <span>{props.name}</span>
-        </button>
-        <button onClick={() => props.deleteTask(props.id)}>
-          Delete <span>{props.name}</span>
-        </button>
+        <button onClick={() => setIsEditing(true)}>Edit</button>
+        <button onClick={() => props.deleteTask(props.id)}>Delete</button>
       </div>
     </div>
   );
