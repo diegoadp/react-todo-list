@@ -22,15 +22,20 @@ function Form(props: Props) {
       <h2>
         <label htmlFor="new-todo-input">What needs to be done?</label>
       </h2>
-      <input
-        type="text"
-        id="new-todo-input"
-        name="text"
-        value={name}
-        required
-        onChange={handleChange}
-      />
-      <button type="submit">Add</button>
+      <div className="form-inline mb-3">
+        <input
+          className="form-control"
+          type="text"
+          id="new-todo-input"
+          name="text"
+          value={name}
+          required
+          onChange={handleChange}
+        />
+        <button className="btn btn-primary ml-2" type="submit">
+          Add
+        </button>
+      </div>
     </form>
   );
 }

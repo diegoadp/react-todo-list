@@ -84,14 +84,22 @@ function App() {
   const tasksRemaining = `${taskList.length} ${tasksNoun} remaining`;
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <h1>React Todo List</h1>
-      <Form addTask={addTask} />
-      {filterList}
-      <h2>{tasksRemaining}</h2>
-      <ul>{taskList}</ul>
+    <div className="container">
+      <div className="d-flex justify-content-center">
+        <h1 className="mt-5 mb-5">React Todo List</h1>
+      </div>
+      <div className="d-flex justify-content-center">
+        <Form addTask={addTask} />
+      </div>
+      <div className="d-flex justify-content-center px-5 mx-5 mb-5 btn-group role=group">{filterList}</div>
+      <div className="d-flex justify-content-center">
+        <h2>{tasksRemaining}</h2>
+      </div>
+      <div className="d-flex justify-content-center">
+        <div className="card w-50">
+          <ul className="list-group list-group-flush">{taskList}</ul>
+        </div>
+      </div>
     </div>
   );
 }

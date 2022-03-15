@@ -25,7 +25,9 @@ function Todo(props: Item & Props) {
   const editingTemplate = (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor={props.id}>New name for {props.name}</label>
+        <label className="lead mr-3" htmlFor={props.id}>
+          New name for {props.name}
+        </label>
         <input
           id={props.id}
           type="text"
@@ -34,9 +36,11 @@ function Todo(props: Item & Props) {
           onChange={handleChange}
         />
       </div>
-      <div>
-        <button onClick={() => setIsEditing(false)}>Cancel</button>
-        <button>Save</button>
+      <div className="btn-group" role="group">
+        <button className="btn btn-primary" onClick={() => setIsEditing(false)}>
+          Cancel
+        </button>
+        <button className="btn btn-primary">Save</button>
       </div>
     </form>
   );
@@ -50,16 +54,29 @@ function Todo(props: Item & Props) {
           defaultChecked={props.done}
           onChange={() => props.toggleTaskCompleted(props.id)}
         />
-        <label htmlFor={props.id}>{props.name}</label>
+        <label className="lead ml-3" htmlFor={props.id}>
+          {props.name}
+        </label>
       </div>
-      <div>
-        <button onClick={() => setIsEditing(true)}>Edit</button>
-        <button onClick={() => props.deleteTask(props.id)}>Delete</button>
+      <div className="btn-group" role="group">
+        <button className="btn btn-primary" onClick={() => setIsEditing(true)}>
+          Edit
+        </button>
+        <button
+          className="btn btn-primary"
+          onClick={() => props.deleteTask(props.id)}
+        >
+          Delete
+        </button>
       </div>
     </div>
   );
 
-  return <li>{isEditing ? editingTemplate : viewTemplate}</li>;
+  return (
+    <li className="list-group-item">
+      {isEditing ? editingTemplate : viewTemplate}
+    </li>
+  );
 }
 
 export default Todo;

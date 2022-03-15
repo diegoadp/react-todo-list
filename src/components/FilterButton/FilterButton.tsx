@@ -9,6 +9,7 @@ type Props = {
 function FilterButton(props: Props) {
   return (
     <button
+      className="btn btn-secondary"
       type="button"
       aria-pressed={props.isPressed}
       onClick={() => props.setFilter(props.name)}
